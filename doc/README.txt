@@ -44,21 +44,38 @@ PACKAGE CONTENTS: This distribution contains the following Matlab
 routines to compute thermodynamic equilibrium and reactive
 equilibration in a multi-component compositional space:
 
-- R_DMC_USER_EX1.m
+- usr/R_DMC_USER_EX1.m
    Example user control routine set up to plot various phase diagram
    readings for hydrated and carbonated mantle melting.
 
-- R_DMC_USER_EX2.m
+- usr/R_DMC_USER_EX2.m
    Example user control routine set up to compute reactive
    equilibration for hydrated and carbonated mantle melting.
 
-- R_DMC_CAL_EX.m
+- cal/R_DMC_CAL_JPET16_REF.m
    Example calibration file for hydrated and carbonated mantle melting
-   models in a four-component compositional space as used in "Effects
-   of volatiles on melt production and reactive flow in the mantle",
-   Tobias Keller & Richard F. Katz, (Journal, Year).
+   models in a four-component compositional space as used for reference 
+   models in "Effects of volatiles on melt production and reactive flow 
+   in the mantle", Tobias Keller & Richard F. Katz, (J Pet, 2016).
 
-- R_DMC_Equilibrium.m
+- cal/R_DMC_CAL_JPET16_HiR.m
+   Example calibration file for hydrated and carbonated mantle melting
+   models in a four-component compositional space as used for high-R 
+   calibration in "Effects of volatiles on melt production and reactive 
+   flow in the mantle", Tobias Keller & Richard F. Katz, (J Pet, 2016).
+
+- cal/R_DMC_CAL_JPET16_LoR.m
+   Example calibration file for hydrated and carbonated mantle melting
+   models in a four-component compositional space as used for low-R 
+   calibration in "Effects of volatiles on melt production and reactive 
+   flow in the mantle", Tobias Keller & Richard F. Katz, (J Pet, 2016).
+
+- cal/R_DMC_CAL_MANTLE.m
+   Example calibration file for hydrated and carbonated basaltic mantle 
+   melting models in a six-component compositional space (for experimentation 
+   only, not published).
+
+- src/R_DMC_Equilibrium.m
    Routine computing thermodynamic equilibrium in a multi-component
    compositional space defined in terms of P-dependent component
    melting points, and P.T-dependent component distribution
@@ -66,17 +83,17 @@ equilibration in a multi-component compositional space:
    equilibrium melt fraction and phase compositions for a given
    pressure, temperature and bulk composition.
 
-- R_DMC_ReactionRates.m
+- src/R_DMC_ReactionRates.m
    Routine computing linear kinetic equilibration rates given 
    the disequilibrated melt fraction and phase compositions in a
    multi-component system, along with the thermodynamic equilibrium
    state towards which reactions are driven.
 
-- R_DMC_PhaseDiagrams.m
+- src/R_DMC_PhaseDiagrams.m
    Routine plotting various phase diagram readings for a calibrated
    multi-component compositional system.
 
-- R_DMC_ReactiveEquilibration.m
+- src/R_DMC_ReactiveEquilibration.m
    Routine computing reactive equilibration for a calibrated
    multi-component compositional system. The routine solves a coupled
    system of ODEs for the time evolution of temperature, pressure,
