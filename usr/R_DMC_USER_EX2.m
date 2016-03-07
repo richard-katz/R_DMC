@@ -27,6 +27,7 @@
 % along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 clear variables;
+addpath '../src/' '../cal/'
 
 %**************************************************************************
 %*****  USE R_DMC REACTIVE EQUILIBRATION  *********************************
@@ -34,7 +35,7 @@ clear variables;
 
 %*****  SET CALIBRATION FILE FOR R_DMC METHOD  %***************************
 
-R_DMC_CAL_EX
+R_DMC_CAL_JPET16_REF
 
 %*****  USER SPECIFIED INPUT PARAMETERS  **********************************
 
