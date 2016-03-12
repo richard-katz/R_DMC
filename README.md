@@ -6,7 +6,7 @@ SOFTWARE PACKAGE: Reactive Disequilibrium Multi-Component method for
 computing partial melting and magmatic evolution models in the
 mantle.
 
-COPIRIGHT (C) 2015
+COPYRIGHT (C) 2015
 	  Tobias Keller [tobias.keller@earth.ox.ac.uk] 
 	  University of Oxford
 	  FOALAB
