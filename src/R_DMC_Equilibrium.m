@@ -311,7 +311,7 @@ function  [PAR]  =  K(T,PAR)
 %     Parameterization after Rudge, Bercovici, & Spiegelman (2010)
 PAR.K  =  zeros(size(T,1),PAR.nc);
 for i = 1:PAR.nc
-    PAR.K(:,i)  =  exp(PAR.L(i)./PAR.r(i).*(1./T - 1./PAR.Tm(:,i)));
+    PAR.K(:,i)  =  exp(PAR.L(i)./PAR.r(i).*(1./(T+273) - 1./(PAR.Tm(:,i)+273)));
 end
 
 end
