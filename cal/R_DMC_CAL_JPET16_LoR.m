@@ -16,6 +16,9 @@ PAR.T0(2)  =  1027;
 PAR.T0(3)  =  785;
 PAR.T0(4)  =  725;
 
+% choose type of parameterisation for T_m^i(P)
+PAR.Tm_P_mode  = 'quadratic';
+
 % set coeff. for linear P-dependence of T_m^i [K/GPa]
 PAR.A(1)   =   45;
 PAR.A(2)   =  117.4;
