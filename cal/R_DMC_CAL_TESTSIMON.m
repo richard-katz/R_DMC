@@ -35,27 +35,27 @@
 PAR.nc  =  3;
 
 % set string with component name to appear in figure legends
-PAR.CompStr  =  {'dunite~','morb~','hmorb~'};
+PAR.CompStr  =  {'dun~','pxn~','hsi~'};
 
 % specify calibration parameters for all components below [USER SPEC]
 
 % set pure component melting points T_m^i at P=0
-PAR.T0(1)  =  1780;                  
+PAR.T0(1)  =  1800;                  
 PAR.T0(2)  =  1000;
-PAR.T0(3)  =  710;
+PAR.T0(3)  =  700;
 
 % choose type of parameterisation for T_m^i(P)
 PAR.Tm_P_mode  = 'simonslaw';
 
 % set first coeff. for P-dependence of T_m^i [GPa]
 PAR.A(1)   =   10;
-PAR.A(2)   =   10;
-PAR.A(3)   =   10;
+PAR.A(2)   =   3;
+PAR.A(3)   =   8;
 
 % set second coeff. for P-dependence of T_m^i [1]
-PAR.B(1)   =  3;
-PAR.B(2)   =  3;
-PAR.B(3)   =  3;
+PAR.B(1)   =  3.8;
+PAR.B(2)   =  3.3;
+PAR.B(3)   =  3.5;
 
 % set latent heat of pure components L^i [J/kg]
 PAR.L(1)   =  600e3;
@@ -63,8 +63,8 @@ PAR.L(2)   =  450e3;
 PAR.L(3)   =  350e3;
 
 % set coeff. for T-dependence of distribution coefficients K^i
-PAR.r(1)   =  60;
+PAR.r(1)   =  50;
 PAR.r(2)   =  30;
-PAR.r(3)   =  30;
+PAR.r(3)   =  24;
 
 
