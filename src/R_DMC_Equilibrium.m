@@ -312,7 +312,7 @@ switch PAR.Tm_P_mode
         %***  Parameterization as in Rudge etal (2011)
         PAR.Tm  =  zeros(size(P,1),PAR.nc);
         for i = 1:PAR.nc
-            PAR.Tm(i)  =  PAR.T0(i) .* (1 + P/PAR.A(i)) .^ (1/PAR.B(i));
+            PAR.Tm(:,i)  =  PAR.T0(i) .* (1 + P/PAR.A(i)) .^ (1/PAR.B(i));
         end
         
 end % switch
