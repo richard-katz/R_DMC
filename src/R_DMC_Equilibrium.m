@@ -287,22 +287,36 @@ end
 function  [PAR]  =  Tm(P,PAR)
 
 %***  compute P-dependence of component melting points
-%     Parameterization after Katz (2003)
-PAR.Tm  =  zeros(size(P,1),PAR.nc);
-for i = 1:PAR.nc
-    PAR.Tm(:,i)  =  PAR.T0(i) + PAR.A(i).*P + PAR.B(i).*P.^2;
-end
 
-%***  safeguard: continue melting point with linear slope above Pmax
-Pmax    =  6;
-for i = 1:PAR.nc
-    ind = P > Pmax;
-    T0   =  PAR.T0(i) + PAR.A(i).*Pmax + PAR.B(i).*Pmax.^2;
-    dTdP =  ((PAR.A(i).*Pmax + PAR.B(i).*Pmax.^2)-(PAR.A(i).*(Pmax-0.01) + PAR.B(i).*(Pmax-0.01).^2))./0.01;
-    PAR.Tm(ind,i) = T0 + dTdP.*(P(ind)-Pmax);
-end
-
-end
+switch PAR.Tm_P_mode
+    
+    case 'quadratic'
+        
+        %***  Parameterization as in Katz (2003)
+        PAR.Tm  =  zeros(size(P,1),PAR.nc);
+        for i = 1:PAR.nc
+            PAR.Tm(:,i)  =  PAR.T0(i) + PAR.A(i).*P + PAR.B(i).*P.^2;
+        end
+        
+        %***  safeguard: continue melting point with linear slope above Pmax
+        Pmax    =  6;
+        for i = 1:PAR.nc
+            ind = P > Pmax;
+            T0   =  PAR.T0(i) + PAR.A(i).*Pmax + PAR.B(i).*Pmax.^2;
+            dTdP =  ((PAR.A(i).*Pmax + PAR.B(i).*Pmax.^2)-(PAR.A(i).*(Pmax-0.01) + PAR.B(i).*(Pmax-0.01).^2))./0.01;
+            PAR.Tm(ind,i) = T0 + dTdP.*(P(ind)-Pmax);
+        end
+        
+    case 'simonslaw'
+        
+        %***  Parameterization as in Rudge etal (2011)
+        PAR.Tm  =  zeros(size(P,1),PAR.nc);
+        for i = 1:PAR.nc
+            PAR.Tm(i)  =  PAR.T0(i) .* (1 + P/PAR.A(i)) .^ (1/PAR.B(i));
+        end
+        
+end % switch
+end % function
 
 
 function  [PAR]  =  K(T,PAR)
