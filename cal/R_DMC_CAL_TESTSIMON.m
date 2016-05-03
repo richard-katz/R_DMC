@@ -62,6 +62,9 @@ PAR.L(1)   =  600e3;
 PAR.L(2)   =  450e3;
 PAR.L(3)   =  350e3;
 
+% choose type of parameterisation for K^i(T)
+PAR.K_T_mode  = 'inverse_exp';
+
 % set coeff. for T-dependence of distribution coefficients K^i
 PAR.r(1)   =  50;
 PAR.r(2)   =  30;
