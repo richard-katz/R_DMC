@@ -325,7 +325,7 @@ function  [PAR]  =  K(T,PAR)
 
 switch PAR.K_T_mode
     
-    case 'inverse_exponential'
+    case 'inverse_exp'
         
         %     Parameterization after Rudge, Bercovici, & Spiegelman (2010)
         PAR.K  =  zeros(size(T,1),PAR.nc);
@@ -333,12 +333,12 @@ switch PAR.K_T_mode
             PAR.K(:,i)  =  exp(PAR.L(i)./PAR.r(i).*(1./(T+273.15) - 1./(PAR.Tm(:,i)+273.15)));
         end
         
-    case 'direct_exponential'
+    case 'linear_exp'
         
         %     Parameterization after Rudge, Bercovici, & Spiegelman (2010)
         PAR.K  =  zeros(size(T,1),PAR.nc);
         for i = 1:PAR.nc
-            PAR.K(:,i)  =  exp(-1./PAR.r(i).*(T - PAR.Tm(:,i)));
+            PAR.K(:,i)  =  exp(-PAR.r(i).*(T - PAR.Tm(:,i)));
         end
         
 end % switch
