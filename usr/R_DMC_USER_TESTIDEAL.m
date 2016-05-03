@@ -51,14 +51,15 @@ PAR.Pmax  =  4;
 PAR.Pref  =  0;
 
 %***  set temperature range [deg C] for phase diagrams  
-PAR.Tmin  =  700;
-PAR.Tmax  =  1700;
+PAR.Tmin  =  1000;
+PAR.Tmax  =  1600;
 PAR.Tref  =  1350;
 
 %***  set reference composition [wt %] for phase diagrams  
 %     provide a ref value for each component
 %     components will be normalized to 100%
-PAR.Cref  =  [65.5,24,8,2,0.5];
+PAR.Cref    =  [0,16,8,2,0.25];
+PAR.Cref(1) =  100-sum(PAR.Cref);
 
 %***  set parameters for adiabatic T gradient  
 PAR.alpha  =  2e-5;  % thermal expansivity [1/K]
@@ -77,7 +78,7 @@ PLOT.TP_plot      =  {[1,2,3,4,5]};        % melting point: T_m^i vs P
 PLOT.KP_plot      =  {[1,2,3,4,5]};        % distribution coeff: K^i vs P
 PLOT.KT_plot      =  {[1,2,3,4,5]};        % distriubtion coeff: K^i vs T
 PLOT.TC_bin_plot  =  {[1,2],[2,3],[3,4]};  % binary  phase loops: T_sol, T_liq vs C^i (binary)
-PLOT.TC_ter_plot  =  {[1,2,3],[2,3,4]};    % ternary phase loops: T_sol, T_liq vs C^i (ternary)
+PLOT.TC_ter_plot  =  {};%{[1,2,3],[2,3,4]};    % ternary phase loops: T_sol, T_liq vs C^i (ternary)
 
 %***  specify melting and compositional evolution diagrams to plot  
 %     FT- and FP-plots: leave 0 for no plots, set to 1 for each required plot
@@ -86,7 +87,7 @@ PLOT.TC_ter_plot  =  {[1,2,3],[2,3,4]};    % ternary phase loops: T_sol, T_liq v
 %                       e.g. {[1,2],[2,3],[3,4]}, or {[1,2,3,4],[3,4]}
 PLOT.FT_plot  =   1;             % isobaric  melting: f vs T
 PLOT.FP_plot  =   1;             % adiabatic melting: f vs P
-PLOT.CT_plot  =  {[1,2,3,4,5]};  % isobaric  composition: C_l^i, C_s^i vs T
+PLOT.CT_plot  =  {};%{[1,2,3,4,5]};  % isobaric  composition: C_l^i, C_s^i vs T
 PLOT.CP_plot  =  {[1,2,3,4,5]};  % adiabatic composition: C_l^i, C_s^i vs P
 
 
