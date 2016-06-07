@@ -36,26 +36,26 @@
 PAR.nc  =  5;
 
 % set string with component name to appear in figure legends
-PAR.CompStr  =  {'c1','c2','c3','c4','c5'};
+PAR.CompStr  =  {'for','fay','opx','cpx','inc'};
 
 % specify calibration parameters for all components below [USER SPEC]
 
 % set pure component melting points T_m^i at P=0
-PAR.T0(1)  =  1500;                  
-PAR.T0(2)  =  1300;
-PAR.T0(3)  =  1100;
-PAR.T0(4)  =   900;
-PAR.T0(5)  =   700;
+PAR.T0(1)  =  1600;
+PAR.T0(2)  =  1400;                  
+PAR.T0(3)  =  1200;
+PAR.T0(4)  =  1000;
+PAR.T0(5)  =   800;
 
 % choose type of parameterisation for T_m^i(P)
 PAR.Tm_P_mode  = 'quadratic';
 
 % set first coeff. for P-dependence of T_m^i [GPa]
-PAR.A(1)   =   80;
-PAR.A(2)   =   80;
-PAR.A(3)   =   80;
-PAR.A(4)   =   80;
-PAR.A(5)   =   80;
+PAR.A(1)   =   100;
+PAR.A(2)   =   100;
+PAR.A(3)   =   100;
+PAR.A(4)   =   100;
+PAR.A(5)   =   100;
 
 % set second coeff. for P-dependence of T_m^i [1]
 PAR.B(1)   =  0;
@@ -65,24 +65,24 @@ PAR.B(4)   =  0;
 PAR.B(5)   =  0;
 
 % set entropy gain of fusion DeltaS [J/K]
-PAR.dS     =  350;
+PAR.dS     =  330;
 
 % get component latent heat of fusion L^i = dS*T_0^i
 PAR.L(1)   =  (PAR.T0(1)+273.15)*PAR.dS;
 PAR.L(2)   =  (PAR.T0(2)+273.15)*PAR.dS;
 PAR.L(3)   =  (PAR.T0(3)+273.15)*PAR.dS;
 PAR.L(4)   =  (PAR.T0(4)+273.15)*PAR.dS;
-PAR.L(5)   =  (PAR.T0(5)+273.15)*PAR.dS;
+PAR.L(5)   =  (PAR.T0(4)+273.15)*PAR.dS;
 
 % choose type of parameterisation for K^i(T)
 PAR.K_T_mode  = 'linear_exp';
 
 % set coeff. for T-dependence of distribution coefficients K^i [1/K]
-PAR.r(1)   =  1.46e-2;
-PAR.r(2)   =  1.46e-2;
-PAR.r(3)   =  1.46e-2;
-PAR.r(4)   =  1.46e-2;
-PAR.r(5)   =  1.46e-2;
-
+a = 1/1.2;
+PAR.r(1)   =  1.00e-2*a;
+PAR.r(2)   =  1.25e-2*a;
+PAR.r(3)   =  1.50e-2*a;
+PAR.r(4)   =  1.75e-2*a;
+PAR.r(5)   =  2.00e-2*a;
 
 
