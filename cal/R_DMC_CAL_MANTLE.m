@@ -51,6 +51,9 @@ PAR.T0(4)  =  850;
 PAR.T0(5)  =  710;
 PAR.T0(6)  =  640;
 
+% choose type of parameterisation for T_m^i(P)
+PAR.Tm_P_mode  = 'quadratic';
+
 % set coeff. for linear P-dependence of T_m^i [K/GPa]
 PAR.A(1)   =  45;
 PAR.A(2)   =  90;
@@ -74,6 +77,9 @@ PAR.L(3)   =  400e3;
 PAR.L(4)   =  350e3;
 PAR.L(5)   =  350e3;
 PAR.L(6)   =  350e3;
+
+% choose type of parameterisation for K^i(T)
+PAR.K_T_mode  = 'inverse_exp';
 
 % set coeff. for T-dependence of distribution coefficients K^i
 PAR.r(1)   =  70;
