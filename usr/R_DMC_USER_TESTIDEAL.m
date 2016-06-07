@@ -41,24 +41,25 @@ R_DMC_CAL_TESTIDEAL
 
 %***  set plotting options   
 PAR.np      =  200;    % number of grid points
-PLOT.hold   =  false;  % false = clear previous figure; true = hold previous figure
-PLOT.LS     =  '-';    % line style
+PLOT.hold   =  true;  % false = clear previous figure; true = hold previous figure
+PLOT.LS     =  ':';    % line style
 PLOT.scale  =  'lin';  % choose 'log'/'lin' scaling for melt & component fractions
 
 %***  set pressure range [GPa] for phase diagrams  
 PAR.Pmin  =  0;
-PAR.Pmax  =  4;
+PAR.Pmax  =  5;
 PAR.Pref  =  0;
 
 %***  set temperature range [deg C] for phase diagrams  
-PAR.Tmin  =  1000;
+PAR.Tmin  =  900;
 PAR.Tmax  =  1600;
 PAR.Tref  =  1350;
 
 %***  set reference composition [wt %] for phase diagrams  
 %     provide a ref value for each component
 %     components will be normalized to 100%
-PAR.Cref    =  [0,16,8,2,0.25];
+% PAR.Cref    =  [0,16,8,2,0.25];
+PAR.Cref    =  [0,8,16,8,2];
 PAR.Cref(1) =  100-sum(PAR.Cref);
 
 %***  set parameters for adiabatic T gradient  
@@ -77,8 +78,8 @@ PLOT.SL_plot      =   1;                   % solidus & liquidus: T_sol, T_liq vs
 PLOT.TP_plot      =  {[1,2,3,4,5]};        % melting point: T_m^i vs P
 PLOT.KP_plot      =  {[1,2,3,4,5]};        % distribution coeff: K^i vs P
 PLOT.KT_plot      =  {[1,2,3,4,5]};        % distriubtion coeff: K^i vs T
-PLOT.TC_bin_plot  =  {[1,2],[2,3],[3,4]};  % binary  phase loops: T_sol, T_liq vs C^i (binary)
-PLOT.TC_ter_plot  =  {};%{[1,2,3],[2,3,4]};    % ternary phase loops: T_sol, T_liq vs C^i (ternary)
+PLOT.TC_bin_plot  =  {};%{[1,2],[1,3],[1,4],[3,5]};  % binary  phase loops: T_sol, T_liq vs C^i (binary)
+PLOT.TC_ter_plot  =  {[1,2,3],[1,3,4],[3,4,5]};    % ternary phase loops: T_sol, T_liq vs C^i (ternary)
 
 %***  specify melting and compositional evolution diagrams to plot  
 %     FT- and FP-plots: leave 0 for no plots, set to 1 for each required plot
