@@ -27,53 +27,62 @@
 % along with this program.  If not, see <http://www.gnu.org/licenses/>.
 % 
 %
-% HELP:  This file contains an example calibration for hydrated and carbonated
-% mantel melting in a four-component compositional space of dunite, MORB,
-% hydrated MORB-type silicate with 5 wt % H2O, and carbonated MORB-type
-% silicate with 20 wt % CO2.
+% HELP:  This file contains a test calibration for idealised, linearised 
+% mantle melting in a five-component compositional space, with components 
+% c1,...,c5 sorter in order of increasing incompatibility and decreasing 
+% concentration.
 
 % set number of components for R_DMC method  [USER SPEC]
-PAR.nc  =  4;
+PAR.nc  =  5;
 
 % set string with component name to appear in figure legends
-PAR.CompStr  =  {'dunite~','morb~','hmorb~','cmorb~'};
+PAR.CompStr  =  {'for','fay','opx','cpx','inc'};
 
 % specify calibration parameters for all components below [USER SPEC]
 
 % set pure component melting points T_m^i at P=0
-PAR.T0(1)  =  1780;                  
-PAR.T0(2)  =  1000;
-PAR.T0(3)  =  710;
-PAR.T0(4)  =  640;
+PAR.T0(1)  =  1600;
+PAR.T0(2)  =  1400;                  
+PAR.T0(3)  =  1200;
+PAR.T0(4)  =  1000;
+PAR.T0(5)  =   800;
 
 % choose type of parameterisation for T_m^i(P)
 PAR.Tm_P_mode  = 'quadratic';
 
-% set coeff. for linear P-dependence of T_m^i [K/GPa]
-PAR.A(1)   =   45;
-PAR.A(2)   =  112;
-PAR.A(3)   =   40.8;
-PAR.A(4)   =   30.1;
+% set first coeff. for P-dependence of T_m^i [GPa]
+PAR.A(1)   =   100;
+PAR.A(2)   =   100;
+PAR.A(3)   =   100;
+PAR.A(4)   =   100;
+PAR.A(5)   =   100;
 
-% set coeff. for quadratic P-dependence of T_m^i [K/GPa^2]
-PAR.B(1)   =  -2;
-PAR.B(2)   =  -3.37;
-PAR.B(3)   =  -1.54;
-PAR.B(4)   =  -1.88;
+% set second coeff. for P-dependence of T_m^i [1]
+PAR.B(1)   =  0;
+PAR.B(2)   =  0;
+PAR.B(3)   =  0;
+PAR.B(4)   =  0;
+PAR.B(5)   =  0;
 
-% set latent heat of pure components L^i [J/kg]
-PAR.L(1)   =  600e3;
-PAR.L(2)   =  450e3;
-PAR.L(3)   =  350e3;
-PAR.L(4)   =  350e3;
+% set entropy gain of fusion DeltaS [J/K]
+PAR.dS     =  330;
+
+% get component latent heat of fusion L^i = dS*T_0^i
+PAR.L(1)   =  (PAR.T0(1)+273.15)*PAR.dS;
+PAR.L(2)   =  (PAR.T0(2)+273.15)*PAR.dS;
+PAR.L(3)   =  (PAR.T0(3)+273.15)*PAR.dS;
+PAR.L(4)   =  (PAR.T0(4)+273.15)*PAR.dS;
+PAR.L(5)   =  (PAR.T0(4)+273.15)*PAR.dS;
 
 % choose type of parameterisation for K^i(T)
-PAR.K_T_mode  = 'inverse_exp';
+PAR.K_T_mode  = 'linear_exp';
 
-% set coeff. for T-dependence of distribution coefficients K^i
-PAR.r(1)   =  60;
-PAR.r(2)   =  30;
-PAR.r(3)   =  30;
-PAR.r(4)   =  30;
+% set coeff. for T-dependence of distribution coefficients K^i [1/K]
+a = 1/1.2;
+PAR.r(1)   =  1.00e-2*a;
+PAR.r(2)   =  1.25e-2*a;
+PAR.r(3)   =  1.50e-2*a;
+PAR.r(4)   =  1.75e-2*a;
+PAR.r(5)   =  2.00e-2*a;
 
 
