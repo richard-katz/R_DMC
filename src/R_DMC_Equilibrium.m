@@ -108,7 +108,7 @@ r  =  sum(VAR.C./PAR.K,2)-1;
 rnorm      =  1;     % initialize residual norm for iterations
 n          =  0;     % initialize iteration count
 rnorm_tol  =  1e-10; % tolerance for Newton residual
-its_tol    =  100;   % maximum number of iterations
+its_tol    =  500;   % maximum number of iterations
 eps_T      =  5;     % temperature perturbation for finite differencing, degrees
 
 while rnorm > rnorm_tol  % iterate down to full accuracy
@@ -175,7 +175,7 @@ r  =  sum(VAR.C.*PAR.K,2)-1;
 rnorm      =  1;     % initialize residual norm for iterations
 n          =  0;     % initialize iteration count
 rnorm_tol  =  1e-10; % tolerance for Newton residual
-its_tol    =  100;   % maximum number of iterations
+its_tol    =  500;   % maximum number of iterations
 eps_T      =  1;     % temperature perturbation for finite differencing, degrees
 
 while rnorm > rnorm_tol  % iterate down to full accuracy
