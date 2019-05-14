@@ -34,7 +34,7 @@
 %   [deg C]), A (linear P-coefficient [K/GPa]), B (quadratic P-coefficient
 %   [K/GPa^2]), L (latent heat [J/kg]), r (tuning parameter [J/K/kg])
 % - Input type = 'K': calculate component melting points 'Tm' and 
-%   distribution coefficients 'K' at given PT-conditions. 
+%   partition coefficients 'K' at given PT-conditions. 
 %   Output loaded into PAR structure.
 % - Input type = 'T': calculate solidus 'Tsol' and liquidus 'Tliq' at given  
 %   bulk composition 'C'. 
@@ -99,7 +99,7 @@ PAR  =  Tm(VAR.P,PAR);
 %***  set starting guess for Tsol
 Tsol  =  max(min(min(PAR.Tm)),min(max(max(PAR.Tm)),sum(VAR.C.*PAR.Tm,2)));
 
-%***  get T-dependent distribution coefficients Ki
+%***  get T-dependent partition coefficients Ki
 PAR  =  K(Tsol,PAR);
 
 %***  get residual for sum(ci_b/Ki) = 1
@@ -108,18 +108,18 @@ r  =  sum(VAR.C./PAR.K,2)-1;
 rnorm      =  1;     % initialize residual norm for iterations
 n          =  0;     % initialize iteration count
 rnorm_tol  =  1e-10; % tolerance for Newton residual
-its_tol    =  100;   % maximum number of iterations
+its_tol    =  500;   % maximum number of iterations
 eps_T      =  5;     % temperature perturbation for finite differencing, degrees
 
 while rnorm > rnorm_tol  % iterate down to full accuracy
     
-    %***  compute distribution coefficients Ki at T+eps_T
+    %***  compute partition coefficients Ki at T+eps_T
     PAR  =  K(Tsol+eps_T,PAR);
     
     %***  get residual at T+eps_T
     rp   =  sum(VAR.C./PAR.K,2)-1;
     
-    %***  compute distribution coefficients Ki at T-eps_T
+    %***  compute partition coefficients Ki at T-eps_T
     PAR  =  K(Tsol-eps_T,PAR);
     
     %***  get residual at T-eps_T
@@ -131,7 +131,7 @@ while rnorm > rnorm_tol  % iterate down to full accuracy
     %***  apply Newton correction to current guess of Tsol
     Tsol(ii)  =  Tsol(ii) - r(ii)./drdT(ii);
     
-    %***  compute distribution coefficients Ki at Tsol
+    %***  compute partition coefficients Ki at Tsol
     PAR  =  K(Tsol,PAR);
     
     %***  compute residual at Tsol
@@ -142,7 +142,7 @@ while rnorm > rnorm_tol  % iterate down to full accuracy
     
     n  =  n+1;   %  update iteration count
     
-    if (n==its_tol);
+    if (n==its_tol)
         error(['!!! Newton solver for solidus T has not converged after ',num2str(its_tol),' iterations !!!']);
     end
     
@@ -166,7 +166,7 @@ PAR  =  Tm(VAR.P,PAR);
 %***  set starting guess for Tliq
 Tliq  =  max(min(min(PAR.Tm)),min(max(max(PAR.Tm)),sum(VAR.C.*PAR.Tm,2)));
 
-%***  get T-dependent distribution coefficients Ki
+%***  get T-dependent partition coefficients Ki
 PAR  =  K(Tliq,PAR);
 
 %***  get residual for sum(ci_b*Ki) = 1
@@ -175,18 +175,18 @@ r  =  sum(VAR.C.*PAR.K,2)-1;
 rnorm      =  1;     % initialize residual norm for iterations
 n          =  0;     % initialize iteration count
 rnorm_tol  =  1e-10; % tolerance for Newton residual
-its_tol    =  100;   % maximum number of iterations
+its_tol    =  500;   % maximum number of iterations
 eps_T      =  1;     % temperature perturbation for finite differencing, degrees
 
 while rnorm > rnorm_tol  % iterate down to full accuracy
     
-    %***  compute distribution coefficients Ki at T+eps
+    %***  compute partition coefficients Ki at T+eps
     PAR  =  K(Tliq+eps_T,PAR);
     
     %***  get residual at T+eps_T
     rp  =  sum(VAR.C.*PAR.K,2)-1;
     
-    %***  compute distribution coefficients Ki at T-eps_T
+    %***  compute partition coefficients Ki at T-eps_T
     PAR  =  K(Tliq-eps_T,PAR);
     
     %***  get residual at T-eps_T
@@ -198,7 +198,7 @@ while rnorm > rnorm_tol  % iterate down to full accuracy
     %***  apply Newton correction to Tliq
     Tliq(ii)  =  Tliq(ii) - r(ii)./drdT(ii);
     
-    %***  compute distribution coefficients Ki at Tliq
+    %***  compute partition coefficients Ki at Tliq
     PAR  =  K(Tliq,PAR);
     
     %***  compute residual at Tliq
@@ -209,7 +209,7 @@ while rnorm > rnorm_tol  % iterate down to full accuracy
     
     n  =  n+1;   %  update iteration count
     
-    if (n==its_tol);
+    if (n==its_tol)
         error(['!!! Newton solver for liquidus T has not converged after ',num2str(its_tol),' iterations !!!']);
     end
     
@@ -225,8 +225,6 @@ function  [VAR]  =  Equilibrium(VAR,PAR)
 %*****  subroutine to compute equilibrium melt fraction and phase 
 %       compositions at given bulk composition, pressure and temperature
 
-f  =  VAR.f;
-
 %***  get Tsol, Tliq at C = [C1,C2,C3]
 PAR  =  Tsolidus( VAR,PAR);
 PAR  =  Tliquidus(VAR,PAR);
@@ -234,7 +232,7 @@ PAR  =  Tliquidus(VAR,PAR);
 %***  get P-dependent pure component melting T
 PAR  =  Tm(VAR.P,PAR);
 
-%***  get T-dependent distribution coefficients Ki
+%***  get T-dependent partition coefficients Ki
 PAR  =  K(max(PAR.Tsol,min(PAR.Tliq,VAR.T)),PAR);
 
 %***  compute residual of unity sum of components
@@ -258,7 +256,16 @@ else
                   + sum(VAR.C.*(1./PAR.K-1)./(ff./PAR.K+(1-ff)).^2,2);
         
         %***  apply Newton correction to f
-        VAR.f      =  VAR.f - r./dr_df;
+        a = 1;
+        while (any((VAR.f - a.*r./dr_df) < -1e-16) || any(VAR.f - a.*r./dr_df > 1-1e-16))
+            a = a/2;
+            if (a<1e-6)
+                error('R_DMC module: Newton solver for equilibrium melt fraction did not converge with step size %4.4f!',2*a);
+            end
+        end
+                
+        VAR.f = VAR.f - a.*r./dr_df;
+                
         
         %***  compute residual of unity sum of components
         ff     =  repmat(VAR.f,1,PAR.nc);
@@ -268,7 +275,7 @@ else
         rnorm  =  norm(r,2)./sqrt(length(r));
         
         n  =  n+1;  % update iteration count
-        if (n==its_tol);
+        if (n==its_tol)
             error(['!!! Newton solver for equilibrium f did not converge after ',num2str(its_tol),' iterations !!!']);
         end
     end
@@ -287,31 +294,61 @@ end
 function  [PAR]  =  Tm(P,PAR)
 
 %***  compute P-dependence of component melting points
-%     Parameterization after Katz (2003)
-PAR.Tm  =  zeros(size(P,1),PAR.nc);
-for i = 1:PAR.nc
-    PAR.Tm(:,i)  =  PAR.T0(i) + PAR.A(i).*P + PAR.B(i).*P.^2;
-end
 
-%***  safeguard: continue melting point with linear slope above Pmax
-Pmax    =  6;
-for i = 1:PAR.nc
-    ind = P > Pmax;
-    T0   =  PAR.T0(i) + PAR.A(i).*Pmax + PAR.B(i).*Pmax.^2;
-    dTdP =  ((PAR.A(i).*Pmax + PAR.B(i).*Pmax.^2)-(PAR.A(i).*(Pmax-0.01) + PAR.B(i).*(Pmax-0.01).^2))./0.01;
-    PAR.Tm(ind,i) = T0 + dTdP.*(P(ind)-Pmax);
-end
-
-end
+switch PAR.Tm_P_mode
+    
+    case 'quadratic'
+        
+        %***  Parameterization as in Katz (2003)
+        PAR.Tm  =  zeros(size(P,1),PAR.nc);
+        for i = 1:PAR.nc
+            PAR.Tm(:,i)  =  PAR.T0(i) + PAR.A(i).*P + PAR.B(i).*P.^2;
+        end
+        
+        %***  safeguard: continue melting point with linear slope above Pmax
+        Pmax    =  6;
+        for i = 1:PAR.nc
+            ind = P > Pmax;
+            T0   =  PAR.T0(i) + PAR.A(i).*Pmax + PAR.B(i).*Pmax.^2;
+            dTdP =  ((PAR.A(i).*Pmax + PAR.B(i).*Pmax.^2)-(PAR.A(i).*(Pmax-0.01) + PAR.B(i).*(Pmax-0.01).^2))./0.01;
+            PAR.Tm(ind,i) = T0 + dTdP.*(P(ind)-Pmax);
+        end
+        
+    case 'simonslaw'
+        
+        %***  Parameterization as in Rudge etal (2011)
+        PAR.Tm  =  zeros(size(P,1),PAR.nc);
+        for i = 1:PAR.nc
+            PAR.Tm(:,i)  =  PAR.T0(i) .* (1 + P/PAR.A(i)) .^ (1/PAR.B(i));
+        end
+        
+end % switch
+end % function
 
 
 function  [PAR]  =  K(T,PAR)
 
-%***  compute T,P-dependence of equilibrium distribution coefficients
-%     Parameterization after Rudge, Bercovici, & Spiegelman (2010)
-PAR.K  =  zeros(size(T,1),PAR.nc);
-for i = 1:PAR.nc
-    PAR.K(:,i)  =  exp(PAR.L(i)./PAR.r(i).*(1./T - 1./PAR.Tm(:,i)));
-end
+%***  compute T,P-dependence of equilibrium partition coefficients
 
-end
+PAR.L = T.*PAR.dS;
+
+switch PAR.K_T_mode
+        
+    case 'inverse_exp'
+        
+        %     Parameterization after Rudge, Bercovici, & Spiegelman (2010)
+        PAR.K  =  zeros(size(T,1),PAR.nc);
+        for i = 1:PAR.nc
+            PAR.K(:,i)  =  exp(PAR.L(:,i)./PAR.r(i).*(1./(T+273.15) - 1./(PAR.Tm(:,i)+273.15)));
+        end
+        
+    case 'linear_exp'
+        
+        %     Linearised exponential dependence
+        PAR.K  =  zeros(size(T,1),PAR.nc);
+        for i = 1:PAR.nc
+            PAR.K(:,i)  =  exp(-PAR.r(i).*(T - PAR.Tm(:,i)));
+        end
+        
+end % switch
+end % function
