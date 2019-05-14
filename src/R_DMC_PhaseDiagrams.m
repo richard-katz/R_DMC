@@ -122,13 +122,13 @@ if (~isempty(PLOT.TP_plot))
     end
 end
 
-%***  plot component distribution coefficients K^i vs T at P
+%***  plot component partition coefficients K^i vs T at P
 if (~isempty(PLOT.KT_plot)) 
     % prepare solution variable structure VAR
     VAR.T  =  PAR.T_degC;
     VAR.P  =  ones(size(VAR.T)).*PAR.Pref;
     VAR.C  =  repmat(PAR.Cref,size(VAR.P));
-    % get component distribution coefficients K^i
+    % get component partition coefficients K^i
     [~,PAR]  =  R_DMC_Equilibrium(VAR,PAR,'K');
     % create specified plots
     for k = 1:size(PLOT.KT_plot,2)
@@ -141,7 +141,7 @@ if (~isempty(PLOT.KT_plot))
         set(gca,fs{:},tl{:});
         leg = legend(PAR.CompStr{PLOT.KT_plot{k}(:)'}); set(leg,loc{:},ort{:},fs{:},tx{:});
         xlabel('Temperature [deg C]',fs{:},tx{:});
-        ylabel('Log Distribution Coeff',fs{:},tx{:});
+        ylabel('Log Partition Coeff',fs{:},tx{:});
         drawnow;
         if ~holdfig; hold off; end
     end
@@ -153,7 +153,7 @@ if (~isempty(PLOT.KP_plot))
     VAR.P  =  PAR.P_GPa;
     VAR.T  =  PAR.T_adiabat;
     VAR.C  =  repmat(PAR.Cref,size(VAR.P));
-    % get component distribution coefficients K^i
+    % get component partition coefficients K^i
     [~,PAR]  =  R_DMC_Equilibrium(VAR,PAR,'K');
     % create specified plots
     for k = 1:size(PLOT.KP_plot,2)
@@ -165,7 +165,7 @@ if (~isempty(PLOT.KP_plot))
         box on; axis ij tight; grid on;
         set(gca,fs{:},tl{:});
         leg = legend(PAR.CompStr{PLOT.KP_plot{k}(:)'}); set(leg,loc{:},ort{:},fs{:},tx{:});
-        xlabel('Log Distribution Coeff',fs{:},tx{:});
+        xlabel('Log Partition Coeff',fs{:},tx{:});
         ylabel('Pressure [GPa]',fs{:},tx{:});
         drawnow;
         if ~holdfig; hold off; end
