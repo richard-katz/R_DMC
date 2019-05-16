@@ -51,7 +51,7 @@ PAR.Tm_P_mode  = 'quadratic';
 
 % set coeff. for linear P-dependence of T_m^i [K/GPa]
 PAR.A(1)   =   45;
-PAR.A(2)   =  112;
+PAR.A(2)   =   112;
 PAR.A(3)   =   40.8;
 PAR.A(4)   =   30.1;
 
@@ -62,10 +62,10 @@ PAR.B(3)   =  -1.54;
 PAR.B(4)   =  -1.88;
 
 % set latent heat of pure components L^i [J/kg]
-PAR.L(1)   =  600e3;
-PAR.L(2)   =  450e3;
-PAR.L(3)   =  350e3;
-PAR.L(4)   =  350e3;
+PAR.dS(1)  =  600e3./(PAR.T0(1)+273.15);
+PAR.dS(2)  =  450e3./(PAR.T0(2)+273.15);
+PAR.dS(3)  =  350e3./(PAR.T0(3)+273.15);
+PAR.dS(4)  =  350e3./(PAR.T0(4)+273.15);
 
 % choose type of parameterisation for K^i(T)
 PAR.K_T_mode  = 'inverse_exp';
