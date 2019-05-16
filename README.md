@@ -52,6 +52,10 @@ equilibration in a multi-component compositional space:
    Example user control routine set up to compute reactive
    equilibration for hydrated and carbonated mantle melting.
 
+- cal/R_DMC_CAL_MANTLE.m
+   Example calibration file for volatile-rich mantle melting using five
+   components, and Simon's law pressure dependence.
+   
 - cal/R_DMC_CAL_JPET16_REF.m
    Example calibration file for hydrated and carbonated mantle melting
    models in a four-component compositional space as used for reference 

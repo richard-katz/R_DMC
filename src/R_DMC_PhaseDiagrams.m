@@ -92,7 +92,7 @@ tx       =  {'Interpreter','Latex'};
 tl       =  {'TickLabelInterpreter','Latex'};
 holdfig  =  PLOT.hold;
 scaling  =  PLOT.scale;
-color    =  [flipud(R_DMC_Colormap(8:16:end,:));flipud(R_DMC_Colormap(12:16:end,:))];
+color    =  [flipud(R_DMC_Colormap(4:12:end,:));flipud(R_DMC_Colormap(8:12:end,:))];
 set(0,'DefaultFigureColor',[1,1,1]);
 set(0,'DefaultAxesLineWidth',1.5);
 set(0,'DefaultFigureRenderer','zbuffer');
@@ -183,9 +183,9 @@ if (~isempty(PLOT.SL_plot))
     % create specified plot
     figure(f); f=f+1;
     if ~holdfig; clf; end;  hold on;
-    plot(PAR.Tsol,VAR.P,ls{:},lw{:},'Color',color(3,:));
+    plot(PAR.Tsol,VAR.P,ls{:},lw{:},'Color',color(5,:));
     plot(PAR.Tliq,VAR.P,ls{:},lw{:},'Color',color(1,:));
-    plot(PAR.T_adiabat,VAR.P,'-.','Color',color(4,:));
+    plot(PAR.T_adiabat,VAR.P,'-.',lw{:},'Color','k');
     box on; axis ij tight; grid on;
     set(gca,fs{:},tl{:});
     leg = legend('Solidus','Liquidus','Adiabat'); set(leg,loc{:},ort{:},fs{:},tx{:});
