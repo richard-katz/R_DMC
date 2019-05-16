@@ -65,14 +65,11 @@ PAR.B(4)   =  3;
 PAR.B(5)   =  2;
 
 % set entropy gain of fusion DeltaS [J/K]
-PAR.dS     =  330;
-
-% get component latent heat of fusion L^i = dS*T_0^i
-PAR.L(1)   =  870e3;%(PAR.T0(1)+273.15)*PAR.dS;
-PAR.L(2)   =  520e3;%(PAR.T0(2)+273.15)*PAR.dS;
-PAR.L(3)   =  470e3;%(PAR.T0(3)+273.15)*PAR.dS;
-PAR.L(4)   =  420e3;%(PAR.T0(4)+273.15)*PAR.dS;
-PAR.L(5)   =  350e3;%(PAR.T0(5)+273.15)*PAR.dS;
+PAR.dS(1)  =  350;
+PAR.dS(2)  =  350;
+PAR.dS(3)  =  350;
+PAR.dS(4)  =  350;
+PAR.dS(5)  =  350;
 
 % choose type of parameterisation for K^i(T)
 PAR.K_T_mode  = 'inverse_exp';

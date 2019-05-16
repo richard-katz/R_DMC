@@ -330,7 +330,7 @@ function  [PAR]  =  K(T,PAR)
 
 %***  compute T,P-dependence of equilibrium partition coefficients
 
-PAR.L = T.*PAR.dS;
+PAR.L = (T+273.15).*PAR.dS;
 
 switch PAR.K_T_mode
         
